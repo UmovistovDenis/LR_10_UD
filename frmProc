@@ -1,0 +1,65 @@
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+
+namespace LR_10
+{
+    public partial class frmProc : Form
+    {
+        public frmProc()
+        {
+            InitializeComponent();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            myCommand.Parameters["@FIO"].Value = textBox1.Text;
+            myCommand.Parameters["@Group"].Value = textBox2.Text;
+            mySqlConnection.Open();
+            myCommand.ExecuteNonQuery();
+
+            int result = (int)myCommand.Parameters["@Result"].Value;
+
+            var temp = new DataTable();
+            temp.Load(myCommand2.ExecuteReader());
+            dataGridViewRes.DataSource = temp;
+            mySqlConnection.Close();
+
+            
+            if (result == 1)
+            {
+                MessageBox.Show("Перевод выполнен");
+            }
+            else if (result == 2)
+            {
+                MessageBox.Show("Студент с такой фамилией не найден");
+            }
+
+            else if (result == 4)
+            {
+                MessageBox.Show("Такой группы не существует");
+            }
+            else if (result == 3)
+            {
+                MessageBox.Show("Студент уже в этой группе");
+            }
+        }
+
+
+        private void sqlConnection1_InfoMessage(object sender, System.Data.SqlClient.SqlInfoMessageEventArgs e)
+        {
+
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+    }
+}
