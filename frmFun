@@ -1,0 +1,53 @@
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+
+namespace LR_10
+{
+    public partial class frmFun : Form
+    {
+        public frmFun()
+        {
+            InitializeComponent();
+        }
+
+        private void frmFun_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            myCommand.Parameters["@date1"].Value = textBox1.Text;
+            myCommand.Parameters["@date2"].Value = textBox2.Text;
+
+            sqlCommand.Parameters["@date1"].Value = textBox1.Text;
+            sqlCommand.Parameters["@date2"].Value = textBox2.Text;
+            mySqlConnection.Open();
+            myCommand.ExecuteNonQuery();
+
+            var temp = new DataTable();
+            temp.Load(myCommand.ExecuteReader());
+            dataGridView1.DataSource = temp;
+
+            textBox3.Text = sqlCommand.ExecuteScalar().ToString();
+            mySqlConnection.Close();
+
+        }
+        private void textBox3_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+    }
+}
