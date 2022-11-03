@@ -1,0 +1,21 @@
+namespace LR_10
+{
+    public partial class Form1 : Form
+    {
+        public Form1()
+        {
+            InitializeComponent();
+        }
+        private void btnProc_Click(object sender, EventArgs e)
+        {
+            Form frm = new frmProc();
+            frm.Show();
+        }
+
+        private void btnScalarFun_Click(object sender, EventArgs e)
+        {
+            Form frm = new frmFun();
+            frm.Show();
+        }
+    }
+}
